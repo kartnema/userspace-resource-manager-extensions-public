@@ -158,6 +158,54 @@ SignalConfigs:
       - {ResCode: "RES_CGRP_LOW_MEM", Values: [4, 507256]}
       - {ResCode: "RES_CGRP_MIN_MEM", Values: [4, 116631]}
 
+  - SigId: "0x1330"
+    Category: "0xea"
+    Name: "CAMERA_PREVIEW"
+    Enable: false
+    TargetsEnabled: ["qcs9100", "qcs9075", "sa8775p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
+  - SigId: "0x1331"
+    Category: "0xea"
+    Name: "CAMERA_30fps_ENCODE"
+    Enable: false
+    TargetsEnabled: ["qcs9100", "qcs9075", "sa8775p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+  
+  - SigId: "0x1332"
+    Category: "0xea"
+    Name: "CAMERA_60fps"
+    Enable: false
+    TargetsEnabled: ["qcs9100", "qcs9075", "sa8775p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
+  - SigId: "0x1333"
+    Category: "0xea"
+    Name: "CAMERA_HFR"
+    Enable: false
+    TargetsEnabled: ["qcs9100", "qcs9075", "sa8775p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
+  - SigId: "0x1334"
+    Category: "0xea"
+    Name: "CAMERA_HFR_480fps"
+    Enable: false
+    TargetsEnabled: ["qcs9100", "qcs9075", "sa8775p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
+  - SigId: "0x1336"
+    Category: "0xea"
+    Name: "CAMERA_HFR_480fps"
+    Enable: false
+    TargetsEnabled: ["qcs9100", "qcs9075", "sa8775p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
   # camera open tunings
   # CPU cluster 0 Min Freq 2361600, Max Freq 2361600
   # CPU cluster 1 Freq 2361600, Max Freq 2361600
@@ -189,3 +237,12 @@ SignalConfigs:
       - {ResCode: "0x00040001", ResInfo: "0x00000000", Values: [2361600]}
       - {ResCode: "0x00040000", ResInfo: "0x00000100", Values: [2361600]}
       - {ResCode: "0x00040001", ResInfo: "0x00000100", Values: [2361600]}
+
+  # Snapshot Capture
+  - SigId: "0x1339"
+    Category: "0xea"
+    Name: "SNAPSHOT_CAPTURE"
+    Enable: false
+    TargetsEnabled: ["qcs9100", "qcs9075", "sa8775p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1

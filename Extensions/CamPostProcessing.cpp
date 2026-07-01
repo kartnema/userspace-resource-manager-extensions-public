@@ -258,7 +258,7 @@ uint32_t PostProcessingBlock::calculateEncoderSigType(int32_t count) {
  *         21 for high load (20+ threads)
  */
 uint32_t PostProcessingBlock::calculateDecoderSigType(int32_t threadCount) {
-    if (threadCount < 5){
+    if (threadCount < 5) {
         return 0;
     } else if (threadCount >= 5 && threadCount <= 20) {
         return 5;

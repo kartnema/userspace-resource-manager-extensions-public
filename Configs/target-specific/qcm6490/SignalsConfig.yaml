@@ -200,6 +200,14 @@ SignalConfigs:
       - {ResCode: "RES_SCHED_UTIL_CLAMP_MIN", Values: [0]}
       - {ResCode: "RES_SCHED_UTIL_CLAMP_MAX", Values: [716]}
 
+  - SigId: "0x1330"
+    Category: "0xea"
+    Name: "CAMERA_PREVIEW"
+    Enable: false
+    TargetsEnabled: ["qcm6490", "qcs6490"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
   # camera 30fps encode
   # CPU Min Freq 940800, Max Freq 1804800
   - SigId: "0x1331"
@@ -212,6 +220,14 @@ SignalConfigs:
     Resources:
       - {ResCode: "0x00040000", ResInfo: "0x00000000", Values: [940800]}
       - {ResCode: "0x00040001", ResInfo: "0x00000000", Values: [1804800]}
+
+  - SigId: "0x1332"
+    Category: "0xea"
+    Name: "CAMERA_60fps"
+    Enable: false
+    TargetsEnabled: ["qcm6490", "qcs6490"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
 
   # camera HFR
   # CPU CORE 0 Min freq to 1.152Ghz
@@ -237,6 +253,15 @@ SignalConfigs:
     Resources:
       - {ResCode: "0x00040000", ResInfo: "0x00000000", Values: [1152000]}
 
+  # Video Encode 8k30
+  - SigId: "0x1335"
+    Category: "0xea"
+    Name: "VID_ENCODE_8k30"
+    Enable: false
+    TargetsEnabled: ["qcm6490", "qcs6490"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
   # camera 30fps encode
   # CPU Min Freq 940800, Max Freq 1804800
   - SigId: "0x1336"
@@ -249,3 +274,12 @@ SignalConfigs:
     Resources:
       - {ResCode: "0x00040000", ResInfo: "0x00000000", Values: [940800]}
       - {ResCode: "0x00040001", ResInfo: "0x00000000", Values: [1804800]}
+
+  # Snapshot Capture
+  - SigId: "0x1339"
+    Category: "0xea"
+    Name: "SNAPSHOT_CAPTURE"
+    Enable: false
+    TargetsEnabled: ["qcm6490", "qcs6490"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1

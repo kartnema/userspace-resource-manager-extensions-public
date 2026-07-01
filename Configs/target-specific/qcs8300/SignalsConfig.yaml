@@ -160,6 +160,63 @@ SignalConfigs:
       - {ResCode: "RES_CGRP_LOW_MEM", Values: [4, 507256]}
       - {ResCode: "RES_CGRP_MIN_MEM", Values: [4, 116631]}
 
+  - SigId: "0x1330"
+    Category: "0xea"
+    Name: "CAMERA_PREVIEW"
+    Enable: false
+    TargetsEnabled: ["qcs8300", "qcs8275", "sa7255p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
+  - SigId: "0x1331"
+    Category: "0xea"
+    Name: "CAMERA_30fps_ENCODE"
+    Enable: false
+    TargetsEnabled: ["qcs8300", "qcs8275", "sa7255p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+  
+  - SigId: "0x1332"
+    Category: "0xea"
+    Name: "CAMERA_60fps"
+    Enable: false
+    TargetsEnabled: ["qcs8300", "qcs8275", "sa7255p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
+  - SigId: "0x1333"
+    Category: "0xea"
+    Name: "CAMERA_HFR"
+    Enable: false
+    TargetsEnabled: ["qcs8300", "qcs8275", "sa7255p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
+  - SigId: "0x1334"
+    Category: "0xea"
+    Name: "CAMERA_HFR_480fps"
+    Enable: false
+    TargetsEnabled: ["qcs8300", "qcs8275", "sa7255p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
+  # Video Encode 8k30
+  - SigId: "0x1335"
+    Category: "0xea"
+    Name: "VID_ENCODE_8k30"
+    Enable: false
+    TargetsEnabled: ["qcs8300", "qcs8275", "sa7255p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
+  - SigId: "0x1336"
+    Category: "0xea"
+    Name: "MULTI_CAMERA_30fps"
+    Enable: false
+    TargetsEnabled: ["qcs8300", "qcs8275", "sa7255p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1
+
   # camera open tunings
   # CPU cluster Silver(Little) Min Freq 1958400 KHz, Max Freq 1958400 KHz
   # CPU cluster Gold(Big) Min Freq 2112000 KHz, Max Freq 2112000 KHz
@@ -197,3 +254,12 @@ SignalConfigs:
       - {ResCode: "0x00040001", ResInfo: "0x00000100", Values: [2112000]}
       - {ResCode: "0x00040000", ResInfo: "0x00000200", Values: [2361600]}
       - {ResCode: "0x00040001", ResInfo: "0x00000200", Values: [2361600]}
+
+  # Snapshot Capture
+  - SigId: "0x1339"
+    Category: "0xea"
+    Name: "SNAPSHOT_CAPTURE"
+    Enable: false
+    TargetsEnabled: ["qcs8300", "qcs8275", "sa7255p"]
+    Permissions: ["third_party", "system"]
+    Timeout: -1

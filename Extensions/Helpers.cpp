@@ -10,13 +10,16 @@
 
 #include "Helpers.h"
 
+int8_t fileExists(const std::string& filePath) {
+    return access(filePath.c_str(), F_OK) == 0;
+}
+
 // cpumask to hex
-std::string cpuMaskToHex(uint64_t mask)
-{
+void cpuMaskToHex(uint64_t mask, std::string& hexStr) {
     char buf[32];
     snprintf(buf, sizeof(buf), "%llx",
              (unsigned long long)mask);
-    return std::string(buf);
+    hexStr = std::string(buf);
 }
 
 // Lowercase utility
@@ -25,21 +28,21 @@ void toLower(std::string &s) {
                    [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
 }
 
-std::string trim(const std::string& s) {
+void trim(const std::string& s, std::string& trimStr) {
     size_t b = 0, e = s.size();
     while (b < e && std::isspace(static_cast<unsigned char>(s[b]))) ++b;
     while (e > b && std::isspace(static_cast<unsigned char>(s[e - 1]))) --e;
-    return s.substr(b, e - b);
+    trimStr = s.substr(b, e - b);
 }
 
 // Check writability using access(2)
-bool isWritable(const std::string& path) {
+int8_t isWritable(const std::string& path) {
     if (path.empty()) return false;
     return ::access(path.c_str(), W_OK) == 0;
 }
 
 
-int writeLineToFile(const std::string& fileName, const std::string& value) {
+int32_t writeLineToFile(const std::string& fileName, const std::string& value) {
     if (fileName.empty()) return EINVAL;
 
     std::ofstream fileStream(fileName, std::ios::out | std::ios::trunc);
@@ -59,7 +62,7 @@ int writeLineToFile(const std::string& fileName, const std::string& value) {
     return 0;
 }
 
-bool readLineFromFile(const std::string& fileName, std::string& line) {
+int8_t readLineFromFile(const std::string& fileName, std::string& line) {
     if (fileName.empty()) return false;
 
     std::ifstream fileStream(fileName, std::ios::in);
@@ -77,16 +80,4 @@ bool readLineFromFile(const std::string& fileName, std::string& line) {
     fileStream.close();
     line = value;
     return true;
-}
-
-void fetchMachineName(std::string& machineName) {
-    std::string machineNamePath = "/sys/devices/soc0/machine";
-    std::string v;
-    if (!readLineFromFile(machineNamePath, v)) {
-        machineName.clear();
-        return;
-    }
-    v = trim(v);
-    toLower(v);
-    machineName = v;
 }

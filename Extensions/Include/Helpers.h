@@ -11,15 +11,16 @@
 #include <Urm/Extensions.h>
 #include <Urm/UrmPlatformAL.h>
 #include <Urm/SignalInternal.h>
-#include <Urm/TargetRegistry.h>
-#include <Urm/ResourceRegistry.h>
 
-std::string trim(const std::string& s);
-void toLower(std::string& s);
-bool isWritable(const std::string& path);
-int writeLineToFile(const std::string& fileName, const std::string& value);
-bool readLineFromFile(const std::string& fileName, std::string& line);
-void fetchMachineName(std::string& machineName);
-std::string cpuMaskToHex(uint64_t mask);
+// File I/O Helpers
+int8_t fileExists(const std::string& filePath);
+int8_t isWritable(const std::string& path);
+int8_t readLineFromFile(const std::string& fileName, std::string& line);
+int32_t writeLineToFile(const std::string& fileName, const std::string& value);
+
+// String Utils
+void trim(const std::string& value, std::string& trimStr);
+void toLower(std::string& value);
+void cpuMaskToHex(uint64_t mask, std::string& hexStr);
 
 #endif

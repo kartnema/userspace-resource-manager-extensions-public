@@ -26,8 +26,10 @@ void irqAffinityApplierCallback(void* context) {
         std::string filePath = dirPath + std::string(entry->d_name) + "/";
         filePath.append("smp_affinity");
 
-        if(AuxRoutines::fileExists(filePath)) {
-            gIrqAffBackup.emplace_back(filePath, AuxRoutines::readFromFile(filePath));
+        if(fileExists(filePath)) {
+            std::string irqBackup = "";
+            readLineFromFile(filePath, irqBackup);
+            gIrqAffBackup.emplace_back(filePath, irqBackup);
 
             // Convert to hex
             std::ostringstream oss;
@@ -39,7 +41,7 @@ void irqAffinityApplierCallback(void* context) {
             }
             std::string hexMask = oss.str();
             TYPELOGV(NOTIFY_NODE_WRITE_S, filePath.c_str(), hexMask.c_str());
-            AuxRoutines::writeToFile(filePath, hexMask);
+            (void)writeLineToFile(filePath, hexMask);
         }
     }
     closedir(dir);
@@ -52,7 +54,7 @@ void irqAffinityTearCallback(void* context) {
         const std::string& path = kv.first;
         const std::string& oldVal = kv.second;
         TYPELOGV(NOTIFY_NODE_RESET, path.c_str(), oldVal.c_str());
-        AuxRoutines::writeToFile(path, oldVal);
+        (void)writeLineToFile(path, oldVal);
     }
     gIrqAffBackup.clear();
 }

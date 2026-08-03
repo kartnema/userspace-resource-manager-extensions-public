@@ -4,6 +4,8 @@
 #ifndef PREDEF_CALLBACKS_H
 #define PREDEF_CALLBACKS_H
 
+#include <dirent.h>
+
 #include "Helpers.h"
 
 void irqAffinityApplierCallback(void* context);

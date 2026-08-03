@@ -71,12 +71,14 @@ static inline void logWriteFailure(const std::string& path, int rc) {
 // ---------------------------
 static bool isPreemptRtActive() {
     std::string rt;
-    if (readLineFromFile("/sys/kernel/realtime", rt)) {
-        rt = trim(rt);
-        if (isLogEnabled()) logLine(std::string("/sys/kernel/realtime = '") + rt + "'");
-        if (rt == "1") return true;
-        if (rt == "0") return false;
+    if(readLineFromFile("/sys/kernel/realtime", rt)) {
+        std::string trimRt = "";
+        trim(rt, trimRt);
+        if (isLogEnabled()) logLine(std::string("/sys/kernel/realtime = '") + trimRt + "'");
+        if (trimRt == "1") return true;
+        if (trimRt == "0") return false;
     }
+
     struct utsname u{};
     if (uname(&u) == 0) {
         std::string ver(u.version);
@@ -117,17 +119,17 @@ static void cpufreqGovApplierCallback(void* /*context*/) {
         if (!isWritable(govFile)) continue;
 
         std::string oldVal;
-        if (readLineFromFile(govFile, oldVal)) {
+        if(readLineFromFile(govFile, oldVal)) {
             gCpufreqGovBackup.emplace_back(govFile, oldVal);
             logLine("[" + std::string(entry->d_name) + "] old governor: " + oldVal);
-            int rc = writeLineToFile(govFile, "performance");
-            if (rc != 0) {
+            int8_t rc = writeLineToFile(govFile, "performance");
+            if(rc != 0) {
                logWriteFailure(govFile, rc);
             }
             
             if (rc == 0) {
                 std::string now;
-                if (readLineFromFile(govFile, now)) {
+                if(readLineFromFile(govFile, now)) {
                     logLine("verify " + govFile + " -> " + now);
                 }
             }
@@ -144,7 +146,7 @@ static void cpufreqGovTearCallback(void* /*context*/) {
     for (const auto& kv : gCpufreqGovBackup) {
         const std::string& path = kv.first;
         const std::string& oldVal = kv.second;
-        AuxRoutines::writeToFile(path, oldVal);
+        (void)writeLineToFile(path, oldVal);
     }
     gCpufreqGovBackup.clear();
     gCpufreqApplied = false;
@@ -165,7 +167,8 @@ static void irqAffinityApplierCallback(void* /*context*/) {
 
     int32_t args[2] = {GET_MAX_CLUSTER, -1};
     uint64_t hexMask = GET_TARGET_INFO(GET_MASK, 2, args);
-    std::string maskStr = cpuMaskToHex((~(hexMask) & VALID_MASK ));
+    std::string maskStr = "";
+    cpuMaskToHex((~(hexMask) & VALID_MASK ), maskStr);
 
     DIR* dir = opendir(IRQ_DIR_PATH);
     if (!dir) return;
@@ -184,16 +187,16 @@ static void irqAffinityApplierCallback(void* /*context*/) {
 
         std::string oldVal;
 
-        if (readLineFromFile(smpFile, oldVal)) {
+        if(readLineFromFile(smpFile, oldVal)) {
             gIrqAffBackup.emplace_back(smpFile, oldVal);
 
-            int rc = writeLineToFile(smpFile, maskStr);
+            int8_t rc = writeLineToFile(smpFile, maskStr);
             if (rc != 0) {
                 logWriteFailure(smpFile, rc);
             }
             if (rc == 0) {
                 std::string now;
-                if (readLineFromFile(smpFile, now)) {
+                if(readLineFromFile(smpFile, now)) {
                     logLine("verify " + smpFile + " -> " + now);
                 }
             }
@@ -210,7 +213,7 @@ static void irqAffinityTearCallback(void* /*context*/) {
     for (const auto& kv : gIrqAffBackup) {
         const std::string& path = kv.first;
         const std::string& oldVal = kv.second;
-        AuxRoutines::writeToFile(path, oldVal);
+        (void)writeLineToFile(path, oldVal);
     }
     gIrqAffBackup.clear();
     gIrqApplied = false;
@@ -230,7 +233,8 @@ static void workqueueApplierCallback(void* /*context*/) {
 
     int32_t args[2] = {GET_MAX_CLUSTER, -1};
     uint64_t hexMask = GET_TARGET_INFO(GET_MASK, 2, args);
-    std::string maskStr = cpuMaskToHex((~(hexMask) & VALID_MASK));
+    std::string maskStr = "";
+    cpuMaskToHex((~(hexMask) & VALID_MASK), maskStr);
 
     DIR* dir = opendir(WQ_DIR_PATH);
     if (!dir) return;
@@ -242,16 +246,16 @@ static void workqueueApplierCallback(void* /*context*/) {
         if (!isWritable(cpumaskFile)) continue;
 
         std::string oldVal;
-        if (readLineFromFile(cpumaskFile, oldVal)) {
+        if(readLineFromFile(cpumaskFile, oldVal)) {
             gWqMaskBackup.emplace_back(cpumaskFile, oldVal);
 
-            int rc = writeLineToFile(cpumaskFile, maskStr);
+            int8_t rc = writeLineToFile(cpumaskFile, maskStr);
             if (rc != 0) {
                 logWriteFailure(cpumaskFile, rc);
             }
             if (rc == 0) {
                 std::string now;
-                if (readLineFromFile(cpumaskFile, now)) {
+                if(readLineFromFile(cpumaskFile, now)) {
                     logLine("verify " + cpumaskFile + " -> " + now);
                 }
             }
@@ -268,8 +272,7 @@ static void workqueueTearCallback(void* /*context*/) {
     for (const auto& kv : gWqMaskBackup) {
         const std::string& path = kv.first;
         const std::string& oldVal = kv.second;
-
-        AuxRoutines::writeToFile(path, oldVal);
+        (void)writeLineToFile(path, oldVal);
     }
     gWqMaskBackup.clear();
     gWqApplied = false;

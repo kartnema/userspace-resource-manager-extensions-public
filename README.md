@@ -1,3 +1,6 @@
+# Migration Notice
+URM-Extensions are no longer maintained as a separate project, all the plugins and configs have been moved as-is to https://github.com/qualcomm/userspace-resource-moderator (within the plugin/ directory). Any new plugins or modifications to existing ones should be made as part of URM itself.
+
 # Userspace Resource Manager Extensions (URM Extensions)
 
 Official repository for URM Extensions project. This project provides **customizations and extensions** for the [Userspace Resource Manager (URM)](https://github.com/qualcomm/userspace-resource-manager).
